@@ -1,0 +1,159 @@
+<TooltipMDOnlyIconButton@MDIconButton+MDTooltip>
+<FileLoader>:
+    filechooser: filechooser
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba : rgba('#454545')
+            Rectangle:
+                pos: self.pos
+                size:self.size
+        FileChooserIconView:
+
+            id: filechooser
+            path : '/'
+            multiselect: False
+            show_hidden:True
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release:app.fileloaderscreen_to_mainscreen()
+
+            Button:
+                text: "Load"
+                on_release: app.load(filechooser.path, filechooser.selection)
+<MainScreen>:
+    filterapplyingbutton : filterapplyingbutton
+    mainimage:mainimage
+    BoxLayout:
+        orientation:"vertical"
+        MDToolbar:
+            title:"ImageEditor"
+            elevation:10
+        BoxLayout:
+            padding:[10,10,10,10]
+
+            BoxLayout:
+                spacing:50
+
+                orientation:"vertical"
+                size_hint:(0.08,1)
+
+                BoxLayout:
+                    orientation:"vertical"
+                    Label:
+                        size_hint:(1,0.1)
+                        markup:True
+                        text:"[color=#000000]Image[/color]"
+                    GridLayout:
+                        rows:4
+                        col:2
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"reset image"
+                            icon: "reload"
+                            on_release:app.reset_image()
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"gray-scale"
+                            icon: "image-filter-black-white"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"resize"
+                            icon: "resize"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"crop"
+                            icon: "crop"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"remove background"
+                            icon: "layers-remove"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"remove all filters"
+                            icon: "filter-remove"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+
+                        TooltipMDOnlyIconButton:
+                            id:filterapplyingbutton
+                            tooltip_text:"apply filters"
+
+                            on_release: app.filter_menu.open()
+                            icon: "filter-menu"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                BoxLayout:
+                    size_hint:(1,0.01)
+                BoxLayout:
+                    orientation:"vertical"
+                    Label:
+                        size_hint:(1,0.1)
+                        markup:True
+                        text:"[color=#000000]Text[/color]"
+                    GridLayout:
+
+                        rows:4
+                        col:2
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"font color"
+                            icon: "format-color-fill"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"font style"
+                            icon: "format-font"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"text size"
+                            icon: "format-size"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"bold"
+                            icon: "format-bold"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"add text"
+                            icon: "text"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"italic"
+                            icon: "format-italic"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        TooltipMDOnlyIconButton:
+                            tooltip_text:"underline"
+                            icon: "format-underline"
+                            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDCard:
+                size_hint:(1,1)
+                Image:
+                    id:mainimage
+
+
+            BoxLayout:
+                size_hint:(0.1,1)
+                orientation:"vertical"
+                BoxLayout:
+
+
+
+
+
+
+        MDBottomAppBar:
+            MDToolbar:
+                elevation:10
+                type:'bottom'
+                mode:'end'
+                icon:'upload'
+
+                on_action_button:app.mainscreen_to_fileloaderscreen()
+
+
+
